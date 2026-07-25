@@ -1,0 +1,14 @@
+Screen {
+    align: center middle;
+}
+
+Input {
+    margin-bottom: 1;
+}
+
+#main-container {
+    width: 80%;
+    height: 18;
+    border: heavy $success;
+    # border-wdith:
+}
