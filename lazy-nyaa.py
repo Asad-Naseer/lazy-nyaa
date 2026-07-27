@@ -33,7 +33,8 @@ class lazy_nyaa(App):
         results = process_query(user_input=user_input)
         self.results = results
         for result in results:
-            results_list.insert(-1, [Custom_list_item(result)])
+            # results_list.insert(-1, [Custom_list_item(result)])
+            results_list.append(Custom_list_item(result))
 
     @on(ListView.Selected)
     def copy_magnet(self, event:ListView.Selected):
