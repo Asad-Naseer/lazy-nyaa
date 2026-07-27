@@ -1,5 +1,5 @@
 Screen {
-    align: center middle;
+    align: center top;
 }
 
 Input {
@@ -8,7 +8,13 @@ Input {
 
 #main-container {
     width: 80%;
-    height: 18;
+    height: 80%;
     border: heavy $success;
+    margin-top: 2;
+    margin-bottom: 2;
     # border-wdith:
+}
+
+#guide {
+    width: 80%
 }
