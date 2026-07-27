@@ -72,11 +72,7 @@ Copy-Item -Path "dist\lazy-nyaa.exe" -Destination "$HOME\bin\"
 ```
 3. Add this directory to your User PATH variable:
 ```powershell
-[System.Environment]::SetEnvironmentVariable(
-"PATH",
-[System.Environment]::GetEnvironmentVariable("PATH", "User") + ";$HOME\bin",
-"User"
-)
+[System.Environment]::SetEnvironmentVariable("PATH",[System.Environment]::GetEnvironmentVariable("PATH", "User") +";$HOME\bin","User")
 ```
 4. Restart your terminal for the changes to apply. You can now run the tool from anywhere using:
 ```cmd
