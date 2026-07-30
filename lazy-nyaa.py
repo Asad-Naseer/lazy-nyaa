@@ -57,12 +57,12 @@ class lazy_nyaa(App):
                 if sys.platform == "win32":
                     os.startfile(list_view.highlighted_child.magnet_link)
                 elif sys.platform == "darwin":
-                    subprocess.run(["open", list_view.highlighted_child.magnet_link])
+                    subprocess.run(["open", list_view.highlighted_child.magnet_link], check=True)
                 else:
-                    subprocess.run(["xdg-open", list_view.highlighted_child.magnet_link])
+                    subprocess.run(["xdg-open", list_view.highlighted_child.magnet_link], check=True)
             except Exception:
                 self.notify("Failed to open. Try downloading an app that can open magnet links or copy magnet instead.")
-            self.notify("Opening in default] app.")
+            self.notify("Opening in default app.")
 
 if __name__ == "__main__":
     lazy_nyaa().run()
