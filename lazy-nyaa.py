@@ -39,7 +39,11 @@ class lazy_nyaa(App):
 
     @on(ListView.Selected)
     def copy_magnet(self, event:ListView.Selected):
-        self.app.copy_to_clipboard(event.item.magnet_link)
+        if sys.platform == "darwin":
+            process = subprocess.Popen("pbcopy", stdin=subprocess.PIPE, text=True) # roughly equivalent to doing this: echo "magnet_link" | pbcopy
+            proces.communicate(event.item.magnet_link) # this is what we are sending to the mac clipboard
+        else:
+            self.app.copy_to_clipboard(event.item.magnet_link)
         self.notify("Magnet Link Copied!")
         # webbrowser.open(event.item.magnet_link)
 
