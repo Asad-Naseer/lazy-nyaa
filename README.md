@@ -9,14 +9,17 @@
 
 ### Install
 
-**One Line Installer for Linux**
+**One Line Installer for Linux/Max**
 
 ```
 curl -sSL https://raw.githubusercontent.com/Asad-Naseer/lazy-nyaa/main/install.sh | bash
 ```
-**Warning**
 
-The binary might not work on some stable distros. If you are using one of those or if you are using Windows or Mac use the following method to build the binary for your system.
+**For Windows 11**
+
+```
+irm https://raw.githubusercontent.com/Asad-Naseer/lazy-nyaa/main/install.ps1 | iex
+```
 
 ### Compile from source
 
