@@ -20,10 +20,11 @@ Expand-Archive -Path $ZipPath -DestinationPath $TempWorkspace -Force
 Write-Host "    Extraction complete." -ForegroundColor Green
 
 # 3. Setup Bin and PATH
-Write-Host "--> Creating $HOME\bin directory..."
-New-Item -ItemType Directory -Force -Path "$HOME\bin" | Out-Null
+$BinDir = "$HOME\bin"
+Write-Host "--> Creating $BinDir directory..."
+New-Item -ItemType Directory -Force -Path $BinDir | Out-Null
 
-Write-Host "--> Locating lazy-nyaa.exe and copying to $HOME\bin..."
+Write-Host "--> Locating lazy-nyaa.exe and copying to $BinDir..."
 # Find the exe no matter if it extracted with a wrapper folder or not
 $ExeFile = Get-ChildItem -Path $TempWorkspace -Recurse -Filter "lazy-nyaa.exe" | Select-Object -First 1
 
@@ -33,15 +34,17 @@ if ($null -eq $ExeFile) {
     exit
 }
 
-Copy-Item -Path $ExeFile.FullName -Destination "$HOME\bin\" -Force
+Copy-Item -Path $ExeFile.FullName -Destination "$BinDir\" -Force
 
-Write-Host "--> Adding $HOME\bin to your User PATH..."
+Write-Host "--> Adding $BinDir to your User PATH..."
 $CurrentPath = [System.Environment]::GetEnvironmentVariable("PATH", "User")
-if ($CurrentPath -notmatch "$HOME\\bin") {
-    [System.Environment]::SetEnvironmentVariable("PATH", $CurrentPath + ";$HOME\bin", "User")
+
+# FIX: Split the PATH into an array by ';' to avoid Regex backslash errors
+if (($CurrentPath -split ';') -notcontains $BinDir) {
+    [System.Environment]::SetEnvironmentVariable("PATH", $CurrentPath + ";$BinDir", "User")
     Write-Host "    PATH updated successfully." -ForegroundColor Green
 } else {
-    Write-Host "    $HOME\bin is already in your PATH." -ForegroundColor Yellow
+    Write-Host "    $BinDir is already in your PATH." -ForegroundColor Yellow
 }
 
 # 4. Clean up
