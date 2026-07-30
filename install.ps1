@@ -1,30 +1,39 @@
 Write-Host "Starting lazy-nyaa installation for Windows..." -ForegroundColor Cyan
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
+$TempWorkspace = Join-Path $DesktopPath "lazy-nyaa-temp-installer"
 $ZipUrl = "https://github.com/Asad-Naseer/lazy-nyaa/releases/download/V1.1/lazy-nyaa-windows-x64.zip"
 $ZipName = "lazy-nyaa-windows-x64.zip"
-$ZipPath = Join-Path $DesktopPath $ZipName
-$ExtractFolderName = "lazy-nyaa-windows-x64"
-$ExtractedFolderPath = Join-Path $DesktopPath $ExtractFolderName
-$ExePath = Join-Path $ExtractedFolderPath "lazy-nyaa.exe"
+$ZipPath = Join-Path $TempWorkspace $ZipName
+
+# Create temp workspace on desktop
+New-Item -ItemType Directory -Force -Path $TempWorkspace | Out-Null
 
 # 1. Download
-Write-Host "--> Downloading $ZipName to Desktop..."
+Write-Host "--> Downloading $ZipName..."
 Invoke-WebRequest -Uri $ZipUrl -OutFile $ZipPath
 Write-Host "    Download complete." -ForegroundColor Green
 
 # 2. Extract
 Write-Host "--> Extracting $ZipName..."
-# We extract to Desktop. Since the zip contains the 'lazy-nyaa-windows-x64' folder, it will unpack perfectly into it.
-Expand-Archive -Path $ZipPath -DestinationPath $DesktopPath -Force
+Expand-Archive -Path $ZipPath -DestinationPath $TempWorkspace -Force
 Write-Host "    Extraction complete." -ForegroundColor Green
 
 # 3. Setup Bin and PATH
 Write-Host "--> Creating $HOME\bin directory..."
 New-Item -ItemType Directory -Force -Path "$HOME\bin" | Out-Null
 
-Write-Host "--> Copying lazy-nyaa.exe to $HOME\bin..."
-Copy-Item -Path $ExePath -Destination "$HOME\bin\" -Force
+Write-Host "--> Locating lazy-nyaa.exe and copying to $HOME\bin..."
+# Find the exe no matter if it extracted with a wrapper folder or not
+$ExeFile = Get-ChildItem -Path $TempWorkspace -Recurse -Filter "lazy-nyaa.exe" | Select-Object -First 1
+
+if ($null -eq $ExeFile) {
+    Write-Host "Error: Could not find lazy-nyaa.exe in the downloaded archive." -ForegroundColor Red
+    Remove-Item -Path $TempWorkspace -Recurse -Force
+    exit
+}
+
+Copy-Item -Path $ExeFile.FullName -Destination "$HOME\bin\" -Force
 
 Write-Host "--> Adding $HOME\bin to your User PATH..."
 $CurrentPath = [System.Environment]::GetEnvironmentVariable("PATH", "User")
@@ -37,8 +46,7 @@ if ($CurrentPath -notmatch "$HOME\\bin") {
 
 # 4. Clean up
 Write-Host "--> Cleaning up Desktop files..."
-Remove-Item -Path $ZipPath -Force
-Remove-Item -Path $ExtractedFolderPath -Recurse -Force
+Remove-Item -Path $TempWorkspace -Recurse -Force
 Write-Host "    Cleanup complete." -ForegroundColor Green
 
 Write-Host "`nInstallation Finished! lazy-nyaa is now installed." -ForegroundColor Cyan
