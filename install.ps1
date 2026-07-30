@@ -53,4 +53,5 @@ Remove-Item -Path $TempWorkspace -Recurse -Force
 Write-Host "    Cleanup complete." -ForegroundColor Green
 
 Write-Host "`nInstallation Finished! lazy-nyaa is now installed." -ForegroundColor Cyan
+Write-Host "`nType 'lazy-nyaa' into the terminal to use!" -ForegroundColor Cyan
 Write-Host "NOTE: You must restart your current PowerShell window for the PATH changes to take effect." -ForegroundColor Yellow
