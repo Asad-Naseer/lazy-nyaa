@@ -61,4 +61,5 @@ rm -rf "$WORK_DIR"
 echo -e "\033[1;32m    Cleanup complete.\033[0m"
 
 echo -e "\n\033[1;36mInstallation Finished! lazy-nyaa is now installed.\033[0m"
+echo -e "\n\033[1;36mType 'lazy-nyaa' into the terminal to use!\033[0m"
 echo -e "\033[1;33mNOTE: Ensure ~/.local/bin is added to your \$PATH in your .bashrc or .zshrc if it isn't already, then restart your terminal.\033[0m"
