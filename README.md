@@ -15,7 +15,7 @@
 curl -sSL https://raw.githubusercontent.com/Asad-Naseer/lazy-nyaa/main/install.sh | bash
 ```
 
-**For Windows 11**
+**One Line Installer for Windows 11**
 
 ```
 irm https://raw.githubusercontent.com/Asad-Naseer/lazy-nyaa/main/install.ps1 | iex
