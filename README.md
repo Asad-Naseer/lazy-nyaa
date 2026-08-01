@@ -9,7 +9,7 @@
 
 ### Install
 
-**One Line Installer for Linux/Max**
+**One Line Installer for Linux/Mac**
 
 ```
 curl -sSL https://raw.githubusercontent.com/Asad-Naseer/lazy-nyaa/main/install.sh | bash
