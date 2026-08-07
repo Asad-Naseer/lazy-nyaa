@@ -1,5 +1,5 @@
 # lazy-nyaa
-### A Minimal TUI client for browsing torrents quickly on nyaa.si
+### lazy-nyaa is a minimal terminal application which works seamlessly on Windows, Mac and Linux for browsing torrents on nyaa.si
 
 
 <img width="997" height="686" alt="image" src="https://github.com/user-attachments/assets/03ba45bf-08c5-4e77-b229-6810f62aaebc" />
