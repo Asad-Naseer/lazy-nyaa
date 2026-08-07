@@ -24,7 +24,7 @@ cd "$WORK_DIR" || exit
 
 # 2. Download
 echo "--> Downloading $FILE..."
-curl -L -s -o "$FILE" "$URL"
+curl -L -# -o "$FILE" "$URL"
 echo -e "\033[1;32m    Download complete.\033[0m"
 
 # 3. Extract
